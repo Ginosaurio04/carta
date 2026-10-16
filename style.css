@@ -1,0 +1,686 @@
+/* Colores y dimensiones principales: personalizables desde aqui. */
+:root {
+    color-scheme: dark light;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #f7eef3;
+    background: #0d0c15;
+}
+
+/* Centra la escena y crea un fondo romantico de noche encantada */
+body {
+    min-width: 280px;
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 20%, #1e192f 0%, #120f20 50%, #08070e 100%);
+}
+
+/* =========================================================
+   ROSAS EN EL BACKGROUND (BLANCAS, AZULES Y NEGRAS)
+   ========================================================= */
+
+/* Ramilletes decorativos fijados en las esquinas */
+.corner-roses {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.corner-roses--top-left {
+    top: -25px;
+    left: -25px;
+    width: min(240px, 45vw);
+    height: min(240px, 45vw);
+}
+
+.corner-roses--bottom-right {
+    bottom: -25px;
+    right: -25px;
+    width: min(240px, 45vw);
+    height: min(240px, 45vw);
+}
+
+.corner-rose {
+    position: absolute;
+    width: 65%;
+    height: 65%;
+    overflow: visible;
+}
+
+/* Posicionamiento artistico de las tres rosas en la esquina superior izquierda */
+.corner-roses--top-left .corner-rose--white {
+    top: 20%;
+    left: 20%;
+    transform: rotate(-15deg);
+}
+
+.corner-roses--top-left .corner-rose--blue {
+    top: 5%;
+    left: 45%;
+    width: 55%;
+    height: 55%;
+    transform: rotate(25deg);
+}
+
+.corner-roses--top-left .corner-rose--black {
+    top: 45%;
+    left: 8%;
+    width: 55%;
+    height: 55%;
+    transform: rotate(-45deg);
+}
+
+/* Posicionamiento en la esquina inferior derecha */
+.corner-roses--bottom-right .corner-rose--blue {
+    bottom: 20%;
+    right: 20%;
+    transform: rotate(165deg);
+}
+
+.corner-roses--bottom-right .corner-rose--white {
+    bottom: 5%;
+    right: 45%;
+    width: 55%;
+    height: 55%;
+    transform: rotate(195deg);
+}
+
+.corner-roses--bottom-right .corner-rose--black {
+    bottom: 45%;
+    right: 8%;
+    width: 55%;
+    height: 55%;
+    transform: rotate(130deg);
+}
+
+/* Contenedor de rosas y petalos que flotan suavemente por la pantalla */
+.roses-stream {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.floating-flower,
+.floating-petal {
+    position: absolute;
+    bottom: -90px;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation-name: floatRoseUp;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Animacion continua de flotacion y balanceo */
+@keyframes floatRoseUp {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(var(--scale, 1));
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--max-opacity, 0.85);
+    }
+    85% {
+        opacity: var(--max-opacity, 0.85);
+    }
+    100% {
+        transform: translate3d(var(--sway-x, 40px), -115vh, 0) rotate(var(--rot-end, 360deg)) scale(var(--scale, 1));
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   ESTILOS BOTANICOS SVG PARA LAS TRES VARIEDADES DE ROSAS
+   ========================================================= */
+
+/* --- ROSA BLANCA --- */
+.rose-flower--white .petal--outer-1,
+.rose-flower--white .petal--outer-2,
+.rose-flower--white .petal--outer-3,
+.rose-flower--white .petal--outer-4,
+.rose-flower--white .petal--outer-5 {
+    fill: #fdfdfd;
+    stroke: #e2e8f0;
+    stroke-width: 0.8;
+}
+
+.rose-flower--white .petal--mid-1,
+.rose-flower--white .petal--mid-2,
+.rose-flower--white .petal--mid-3,
+.rose-flower--white .petal--mid-4 {
+    fill: #f4f6f8;
+    stroke: #d0d7de;
+    stroke-width: 0.8;
+}
+
+.rose-flower--white .petal--inner-1,
+.rose-flower--white .petal--inner-2,
+.rose-flower--white .petal--inner-3 {
+    fill: #eaeff5;
+    stroke: #cbd5e1;
+    stroke-width: 0.8;
+}
+
+.rose-flower--white .petal--core-1,
+.rose-flower--white .petal--core-2,
+.rose-flower--white .petal--core-3 {
+    fill: #dbe3ed;
+    stroke: #94a3b8;
+    stroke-width: 0.8;
+}
+
+.rose-flower--white .rose-leaf {
+    fill: #194328;
+    stroke: #0f2c1a;
+    stroke-width: 0.6;
+}
+
+.rose-flower--white .rose-leaf-vein {
+    stroke: #2e7346;
+    stroke-width: 0.9;
+    fill: none;
+}
+
+.rose-flower--white {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.65)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+/* --- ROSA AZUL (Zafiro Celestial) --- */
+.rose-flower--blue .petal--outer-1,
+.rose-flower--blue .petal--outer-2,
+.rose-flower--blue .petal--outer-3,
+.rose-flower--blue .petal--outer-4,
+.rose-flower--blue .petal--outer-5 {
+    fill: #2563eb;
+    stroke: #93c5fd;
+    stroke-width: 0.8;
+}
+
+.rose-flower--blue .petal--mid-1,
+.rose-flower--blue .petal--mid-2,
+.rose-flower--blue .petal--mid-3,
+.rose-flower--blue .petal--mid-4 {
+    fill: #1d4ed8;
+    stroke: #60a5fa;
+    stroke-width: 0.8;
+}
+
+.rose-flower--blue .petal--inner-1,
+.rose-flower--blue .petal--inner-2,
+.rose-flower--blue .petal--inner-3 {
+    fill: #1e40af;
+    stroke: #3b82f6;
+    stroke-width: 0.8;
+}
+
+.rose-flower--blue .petal--core-1,
+.rose-flower--blue .petal--core-2,
+.rose-flower--blue .petal--core-3 {
+    fill: #172554;
+    stroke: #2563eb;
+    stroke-width: 0.8;
+}
+
+.rose-flower--blue .rose-leaf {
+    fill: #0d383b;
+    stroke: #061d1f;
+    stroke-width: 0.6;
+}
+
+.rose-flower--blue .rose-leaf-vein {
+    stroke: #1d6a70;
+    stroke-width: 0.9;
+    fill: none;
+}
+
+.rose-flower--blue {
+    filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.85)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* --- ROSA NEGRA (Terciopelo Oscuro Gótico) --- */
+.rose-flower--black .petal--outer-1,
+.rose-flower--black .petal--outer-2,
+.rose-flower--black .petal--outer-3,
+.rose-flower--black .petal--outer-4,
+.rose-flower--black .petal--outer-5 {
+    fill: #27272a;
+    stroke: #52525b;
+    stroke-width: 0.9;
+}
+
+.rose-flower--black .petal--mid-1,
+.rose-flower--black .petal--mid-2,
+.rose-flower--black .petal--mid-3,
+.rose-flower--black .petal--mid-4 {
+    fill: #18181b;
+    stroke: #3f3f46;
+    stroke-width: 0.8;
+}
+
+.rose-flower--black .petal--inner-1,
+.rose-flower--black .petal--inner-2,
+.rose-flower--black .petal--inner-3 {
+    fill: #111114;
+    stroke: #27272a;
+    stroke-width: 0.8;
+}
+
+.rose-flower--black .petal--core-1,
+.rose-flower--black .petal--core-2,
+.rose-flower--black .petal--core-3 {
+    fill: #09090b;
+    stroke: #18181b;
+    stroke-width: 0.8;
+}
+
+.rose-flower--black .rose-leaf {
+    fill: #1e2430;
+    stroke: #11151c;
+    stroke-width: 0.6;
+}
+
+.rose-flower--black .rose-leaf-vein {
+    stroke: #3b4559;
+    stroke-width: 0.9;
+    fill: none;
+}
+
+.rose-flower--black {
+    filter: drop-shadow(0 0 12px rgba(160, 130, 210, 0.35)) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.85));
+}
+
+/* Petalos sueltos en tres colores */
+.petal-unit--white {
+    fill: #ffffff;
+    stroke: #e2e8f0;
+    stroke-width: 0.8;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+.petal-unit--white .single-petal-vein {
+    stroke: #cbd5e1;
+    stroke-width: 0.8;
+    fill: none;
+}
+
+.petal-unit--blue {
+    fill: #2563eb;
+    stroke: #93c5fd;
+    stroke-width: 0.8;
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.7));
+}
+
+.petal-unit--blue .single-petal-vein {
+    stroke: #60a5fa;
+    stroke-width: 0.8;
+    fill: none;
+}
+
+.petal-unit--black {
+    fill: #18181b;
+    stroke: #52525b;
+    stroke-width: 0.8;
+    filter: drop-shadow(0 0 8px rgba(140, 120, 180, 0.35));
+}
+
+.petal-unit--black .single-petal-vein {
+    stroke: #3f3f46;
+    stroke-width: 0.8;
+    fill: none;
+}
+
+/* =========================================================
+   ESCENA PRINCIPAL Y SOBRE
+   ========================================================= */
+
+.scene {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 16px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hint {
+    margin: 0 0 20px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7), 0 0 16px rgba(59, 130, 246, 0.35);
+    letter-spacing: 0.02em;
+    transition: color 0.3s;
+}
+
+/* Caja de la carta y el sobre con perspectiva 3D */
+.letter-scene {
+    position: relative;
+    width: min(360px, 92vw);
+    height: 230px;
+    margin: 110px auto 30px;
+    perspective: 900px;
+}
+
+/* =========================================================
+   LA CARTA Y SU CONTENIDO
+   ========================================================= */
+
+.letter {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 50%;
+    width: calc(100% - 24px);
+    max-height: 200px;
+    padding: 24px 22px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #fffdfa;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+    text-align: left;
+    color: #3f2a39;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 10px) scale(0.95);
+    overflow-y: hidden;
+    transition:
+        transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 350ms ease,
+        max-height 700ms ease,
+        box-shadow 400ms ease,
+        z-index 0ms 700ms;
+}
+
+/* Estado abierto: la carta asciende, revela la imagen y permite interactuar */
+.letter-scene.is-open .letter {
+    z-index: 5;
+    opacity: 1;
+    pointer-events: auto;
+    max-height: 540px;
+    overflow-y: auto;
+    transform: translate(-50%, -185px) scale(1);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+    transition:
+        transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 350ms ease,
+        max-height 700ms ease,
+        box-shadow 400ms ease,
+        z-index 0ms;
+}
+
+/* Barra de desplazamiento elegante para la carta */
+.letter::-webkit-scrollbar {
+    width: 6px;
+}
+.letter::-webkit-scrollbar-track {
+    background: transparent;
+}
+.letter::-webkit-scrollbar-thumb {
+    background: #93c5fd;
+    border-radius: 4px;
+}
+.letter::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+}
+
+/* Boton sutil para cerrar la carta */
+.letter__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.letter__close:hover {
+    background: #dbeafe;
+    color: #1e40af;
+    transform: scale(1.1);
+}
+
+.letter__greeting {
+    margin: 0 0 6px;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.letter h1 {
+    margin: 0 0 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.45rem;
+    color: #2e1a27;
+}
+
+/* =========================================================
+   ESPACIO PARA LA IMAGEN DENTRO DE LA CARTA
+   ========================================================= */
+
+.letter__photo-card {
+    position: relative;
+    width: 100%;
+    margin: 14px 0 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 6px;
+    box-sizing: border-box;
+    border: 1px solid rgba(215, 175, 195, 0.45);
+    box-shadow: 0 4px 18px rgba(60, 30, 48, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter__photo {
+    display: block;
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #faf7f9;
+}
+
+.letter__text {
+    margin: 0;
+    line-height: 1.6;
+    color: #483442;
+    font-size: 0.98rem;
+}
+
+.letter__signoff {
+    margin-top: 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    color: #69445a;
+}
+
+/* =========================================================
+   EL SOBRE
+   ========================================================= */
+
+.envelope {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.envelope:focus-visible {
+    outline: 3px solid #60a5fa;
+    outline-offset: 7px;
+}
+
+.envelope__back,
+.envelope__front,
+.envelope__flap {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.envelope__back {
+    border-radius: 12px;
+    background: #e2e8f0;
+    border: 2px solid #8ca3be;
+    box-sizing: border-box;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+}
+
+.envelope__front {
+    z-index: 3;
+    border-radius: 0 0 12px 12px;
+    background: linear-gradient(155deg, #ffffff 0%, #f4f7fa 60%, #e9edf3 100%);
+    clip-path: polygon(0 0, 50% 59%, 100% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 -3px 8px rgba(0, 0, 0, 0.12));
+}
+
+.envelope__flap {
+    z-index: 4;
+    background: linear-gradient(180deg, #ffffff 0%, #f4f7fa 60%, #e4ecf4 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 62%);
+    transform-origin: top center;
+    backface-visibility: hidden;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22));
+    transition:
+        transform 550ms ease,
+        z-index 0ms 275ms;
+}
+
+.letter-scene.is-open .envelope__flap {
+    z-index: 1;
+    background: #cbd5e1;
+    transform: rotateX(180deg);
+    transition:
+        transform 550ms ease,
+        z-index 0ms;
+}
+
+/* Lineas decorativas para definir con precision los pliegues del sobre blanco */
+.envelope__svg-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.envelope__line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.envelope__line--fold {
+    stroke-width: 2.2;
+    stroke: #8ca3be;
+    filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.8));
+}
+
+.envelope__line--cut {
+    stroke-width: 2.5;
+    stroke: #7794b0;
+}
+
+.envelope__line--border {
+    stroke-width: 2.2;
+    stroke: #8ca3be;
+}
+
+.envelope__flap-edge {
+    fill: none;
+    stroke: #6f8ca8;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+/* Sello / Boton con emoji de corazon azul */
+.envelope__seal {
+    position: absolute;
+    z-index: 6;
+    top: 55%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 2.1rem;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 12px rgba(37, 99, 235, 0.6));
+    transition: opacity 250ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 200ms ease;
+}
+
+.envelope:hover .envelope__seal {
+    transform: translate(-50%, -50%) scale(1.18);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 18px rgba(37, 99, 235, 0.9));
+}
+
+.letter-scene.is-open .envelope__seal {
+    opacity: 0;
+}
+
+/* Oculta elementos visualmente para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+/* Accesibilidad: movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

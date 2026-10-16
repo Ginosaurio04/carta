@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Una carta interactiva dentro de un sobre con fondo de rosas blancas, azules y negras.">
+    <title>Una carta para ti</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Ramilletes decorativos fijos en las esquinas -->
+    <div class="corner-roses corner-roses--top-left" aria-hidden="true">
+        <!-- Rosa Blanca -->
+        <svg class="corner-rose corner-rose--white" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--white" />
+        </svg>
+        <!-- Rosa Azul -->
+        <svg class="corner-rose corner-rose--blue" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--blue" />
+        </svg>
+        <!-- Rosa Negra -->
+        <svg class="corner-rose corner-rose--black" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--black" />
+        </svg>
+    </div>
+
+    <div class="corner-roses corner-roses--bottom-right" aria-hidden="true">
+        <!-- Rosa Azul -->
+        <svg class="corner-rose corner-rose--blue" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--blue" />
+        </svg>
+        <!-- Rosa Blanca -->
+        <svg class="corner-rose corner-rose--white" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--white" />
+        </svg>
+        <!-- Rosa Negra -->
+        <svg class="corner-rose corner-rose--black" viewBox="0 0 100 100">
+            <use href="#rose-full" class="rose-flower rose-flower--black" />
+        </svg>
+    </div>
+
+    <!-- Contenedor dinamico de rosas y petalos flotantes (blancas, azules y negras) -->
+    <div class="roses-stream" id="rosesStream" aria-hidden="true"></div>
+
+    <!-- Definiciones SVG reutilizables para rosas y petalos -->
+    <svg style="display: none;" aria-hidden="true">
+        <defs>
+            <!-- Modelo completo de rosa con hojas y multiples capas de petalos -->
+            <g id="rose-full">
+                <!-- Hojas de fondo -->
+                <g class="rose-leaves">
+                    <path class="rose-leaf" d="M 28 68 C 12 76 6 56 18 42 C 26 54 28 62 28 68 Z" />
+                    <path class="rose-leaf-vein" d="M 18 42 Q 24 56 28 68" />
+                    <path class="rose-leaf" d="M 72 68 C 88 76 94 56 82 42 C 74 54 72 62 72 68 Z" />
+                    <path class="rose-leaf-vein" d="M 82 42 Q 76 56 72 68" />
+                    <path class="rose-leaf" d="M 46 20 C 48 6 64 6 62 20 C 56 14 50 14 46 20 Z" />
+                </g>
+
+                <!-- Petalos exteriores -->
+                <path class="petal petal--outer-1" d="M 28 65 C 34 86 66 86 72 65 C 60 76 40 76 28 65 Z" />
+                <path class="petal petal--outer-2" d="M 20 42 C 8 55 16 80 38 77 C 25 70 18 58 20 42 Z" />
+                <path class="petal petal--outer-3" d="M 80 42 C 92 55 84 80 62 77 C 75 70 82 58 80 42 Z" />
+                <path class="petal petal--outer-4" d="M 26 38 C 18 24 38 16 48 22 C 35 22 27 30 26 38 Z" />
+                <path class="petal petal--outer-5" d="M 74 38 C 82 24 62 16 52 22 C 65 22 73 30 74 38 Z" />
+
+                <!-- Petalos intermedios -->
+                <path class="petal petal--mid-1" d="M 34 60 C 42 74 58 74 66 60 C 58 66 42 66 34 60 Z" />
+                <path class="petal petal--mid-2" d="M 26 46 C 22 58 35 68 48 66 C 36 63 29 54 26 46 Z" />
+                <path class="petal petal--mid-3" d="M 74 46 C 78 58 65 68 52 66 C 64 63 71 54 74 46 Z" />
+                <path class="petal petal--mid-4" d="M 35 32 C 45 22 55 22 65 32 C 56 26 44 26 35 32 Z" />
+
+                <!-- Petalos interiores -->
+                <path class="petal petal--inner-1" d="M 38 56 C 44 66 56 66 62 56 C 56 61 44 61 38 56 Z" />
+                <path class="petal petal--inner-2" d="M 35 46 C 34 55 45 60 53 58 C 44 56 37 50 35 46 Z" />
+                <path class="petal petal--inner-3" d="M 65 46 C 66 55 55 60 47 58 C 56 56 63 50 65 46 Z" />
+
+                <!-- Espiral del corazon de la rosa -->
+                <path class="petal petal--core-1" d="M 40 48 C 40 56 60 56 60 48 C 55 52 45 52 40 48 Z" />
+                <path class="petal petal--core-2" d="M 43 43 C 43 50 57 51 57 45 C 54 48 46 47 43 43 Z" />
+                <path class="petal petal--core-3" d="M 47 41 C 49 38 53 39 53 42 C 51 43 48 43 47 41 Z" />
+            </g>
+
+            <!-- Modelo de petalo suelto -->
+            <g id="rose-petal-shape">
+                <path class="single-petal" d="M 25 5 C 42 6 46 26 32 42 C 18 36 8 22 25 5 Z" />
+                <path class="single-petal-vein" d="M 25 7 Q 27 22 28 36" />
+            </g>
+        </defs>
+    </svg>
+
+    <main class="scene">
+        <!-- Instruccion interactiva -->
+        <p class="hint" id="hint">Pulsa el sobre para abrir la carta</p>
+
+        <div class="letter-scene">
+            <!-- La carta interactiva -->
+            <article class="letter" id="letter" aria-hidden="true">
+                <!-- Boton para cerrar comodamente la carta -->
+                <button type="button" class="letter__close" id="closeLetterBtn" aria-label="Cerrar la carta" title="Cerrar carta">✕</button>
+
+                <p class="letter__greeting">Hola .... ,</p>
+                <h1>Una flor y carta para ti</h1>
+
+                <!-- Espacio para la imagen -->
+                <div class="letter__photo-card">
+                    <img
+                        src="WhatsApp Image 2026-10-15 at 9.08.45 AM.jpeg"
+                        alt="Foto dentro de la carta"
+                        class="letter__photo"
+                    >
+                </div>
+
+                <p class="letter__text">
+                    Solo quiero que sepas que me importas, quiero que estes bien, eres fuerte, inteligente, linda y decidida, siempre estaré ahí para ti, te quiero💙.
+                </p>
+                <p class="letter__signoff">Con cariño,<br>G</p>
+            </article>
+
+            <!-- Boton del sobre con solapa animada -->
+            <button
+                class="envelope"
+                id="envelope"
+                type="button"
+                aria-label="Abrir la carta"
+                aria-expanded="false"
+                aria-controls="letter"
+            >
+                <span class="envelope__back" aria-hidden="true"></span>
+                <span class="envelope__front" aria-hidden="true">
+                    <svg class="envelope__svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M 0 100 L 50 59 L 100 100" class="envelope__line envelope__line--fold" />
+                        <path d="M 0 0 L 50 59 L 100 0" class="envelope__line envelope__line--cut" />
+                        <path d="M 0 0 L 0 100 L 100 100 L 100 0" class="envelope__line envelope__line--border" />
+                    </svg>
+                </span>
+                <span class="envelope__flap" aria-hidden="true">
+                    <svg class="envelope__svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M 0 0 L 50 62 L 100 0 Z" class="envelope__flap-edge" />
+                    </svg>
+                </span>
+                <span class="envelope__seal" aria-hidden="true">💙</span>
+            </button>
+        </div>
+
+        <!-- Anuncio accesible para lectores de pantalla -->
+        <p class="visually-hidden" id="status" aria-live="polite">
+            La carta está cerrada.
+        </p>
+    </main>
+</body>
+</html>
